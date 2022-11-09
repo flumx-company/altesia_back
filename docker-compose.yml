@@ -1,0 +1,88 @@
+version: '3.7'
+
+networks:
+    app-connect:
+        driver: bridge
+
+services:
+    phpmyadmin:
+        container_name: phpmyadmin
+        image: phpmyadmin/phpmyadmin:latest
+        links:
+            - mysql-db:${MYSQL_HOST}
+        networks:
+            - app-connect
+        depends_on:
+            - mysql-db
+        ports:
+            - "80:80"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+            PMA_HOST: ${MYSQL_HOST}
+            PMA_PORT: ${MYSQL_PORT}
+
+    redis:
+        image: redis
+        container_name: redis
+        restart: always
+        ports:
+            - 6379:6379
+        expose:
+            - 6379
+        networks:
+            - app-connect
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 1s
+            timeout: 3s
+            retries: 30
+
+    mysql-db:
+        container_name: mysql-db
+        image: mysql:5.7
+        restart: always
+        env_file:
+            - .env
+        ports:
+            - 3306:3306
+        expose:
+            - 3306
+        volumes:
+            - my-db:/var/lib/mysql
+        networks:
+            - app-connect
+        healthcheck:
+            test: "/usr/bin/mysql --user=${MYSQL_USER} --password=${MYSQL_PASSWORD} --execute \"SHOW DATABASES;\""
+            interval: 2s
+            timeout: 20s
+            retries: 10
+
+    nestjs:
+        container_name: nestjs
+        build:
+            context: .
+            dockerfile: Dockerfile
+        env_file:
+            - .env
+        volumes:
+            - .:/backend/altesia-api/
+            - /backend/altesia-api/node_modules
+        ports:
+            - "${APP_PORT}:${APP_PORT}"
+            - 9229:9229
+        networks:
+            - app-connect
+        expose:
+            - 3003
+        restart: always
+        depends_on:
+            mysql-db:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+        links:
+            - mysql-db
+            - redis
+# Names our volume
+volumes:
+    my-db:

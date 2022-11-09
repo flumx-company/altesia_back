@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main-wrap {
+            background: #F6F6F6;
+            width: 640px;
+            padding: 20px 40px 92px 40px;
+            margin: 0 auto;
+        }
+        .logo-line img {
+            display: block;
+            margin: 0 auto 20px auto;
+        }
+        .main-white-block {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 40px 24px;
+        }
+        .main-white-block .block1 {
+            width: 100%;
+        }
+        .main-white-block .title {
+            font-family: Dosis;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 24px;
+            text-align: center;
+            letter-spacing: 0.15px;
+            color: #2C332D;
+            width: 288px;
+            margin: 0 auto 24px auto;
+        }
+        .main-white-block .subtitle {
+            font-family: Dosis;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            letter-spacing: 0.44px;
+            color: #666666;
+            width: 288px;
+            margin: 0 auto 30px auto;
+        }
+        .main-white-block .block2 {
+            width: 100%;
+            padding: 30px 0;
+        }
+        .main-white-block .btn button {
+            text-align: center;
+            box-sizing: border-box;
+            padding: 16px 67px;
+            background: #40BB15;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            border: none;
+            font-family: Dosis;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 20px;
+            color: #F6F6F6;
+            cursor: pointer;
+        }
+
+        .main-white-block .block3 {
+            width: 100%;
+        }
+        .thanks {
+            font-family: Dosis;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
+            color: #666666;
+            margin: 158px auto 0 auto;
+        }
+    </style>
+</head>
+<body>
+<table class="main-wrap">
+    <tr class="logo-line">
+        <td>
+            <img src="{{ BACKEND_APP_URL }}/files/static/email/logo.png" alt="">
+        </td>
+    </tr>
+    <tr>
+        <td class="main-white-block">
+            <table class="block1">
+                <tr >
+                    <td>
+                        <div class="title">
+                            Your account is verified
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="subtitle">
+                            Congratulations, our moderators have performed a background check. You can use the application freely
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="block2">
+                <tr >
+                    <td>
+                        <div class="btn">
+                            <a style="text-decoration: none" href="{{ APP_URL }}">
+                                <button>Go to Altesia App</button>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table class="block3">
+                <tr >
+                    <td>
+                        <div class="thanks">
+                            Thank you for choosing Altesia
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
